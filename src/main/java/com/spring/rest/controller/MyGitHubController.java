@@ -27,7 +27,7 @@ public class MyGitHubController {
   }
 
   @GetMapping("/{owner}/{repoName}/commits")
-  public ResponseBody readGitHubDetails(
+  public ResponseEntity<List> readGitHubDetails(
       @PathVariable("owner") String owner,
       @PathVariable("repoName") String repoName,
       @RequestHeader("Authorization") String authKey,
@@ -57,6 +57,6 @@ public class MyGitHubController {
     } else {
       logger.info("API call failed");
     }
-    return (ResponseBody) responseEntity;
+    return responseEntity;
   }
 }

@@ -7,6 +7,7 @@ import java.net.URI;
 import java.util.HashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -19,12 +20,13 @@ public final class PinCodeServiceImpl implements PinCodeService {
   @Qualifier("REST_TEMPLATE")
   private final RestTemplate restTemplate;
 
+  @Autowired
   public PinCodeServiceImpl(RestTemplate restTemplate) {
     this.restTemplate = restTemplate;
   }
 
   @Override
-  public Object getPinCodeDetails(Integer zipcode) throws PinCodeServiceException {
+  public ResponseEntity<Object> getPinCodeDetails(Integer zipcode) throws PinCodeServiceException {
     logger.info("getPinCodeDetails in PinCodeServiceImpl");
 
     HashMap<Object, Object> map = new HashMap<>();

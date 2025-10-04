@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,7 +18,7 @@ public class PinCodeController {
   @Autowired private PinCodeService pinCodeService;
 
   @GetMapping("/{zipcode}")
-  public ResponseBody readPinCodeData(@PathVariable("zipcode") Integer zipCode)
+  public ResponseEntity<Object> readPinCodeData(@PathVariable("zipcode") Integer zipCode)
       throws PinCodeServiceException {
     logger.info("readPinCodeData in PinCodeController");
 
@@ -26,9 +27,9 @@ public class PinCodeController {
           new ErrorResponse("Bad Data", HttpStatus.BAD_REQUEST.toString()));
     }
 
-    Object output = pinCodeService.getPinCodeDetails(zipCode);
+    ResponseEntity<Object> output = pinCodeService.getPinCodeDetails(zipCode);
     logger.info("output: {}", output);
 
-    return (ResponseBody) output;
+    return output;
   }
 }
