@@ -1,23 +1,34 @@
 package com.spring.rest.controller;
 
+import com.spring.rest.exception.ErrorResponse;
+import com.spring.rest.exception.PinCodeServiceException;
 import com.spring.rest.service.PinCodeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/address")
 public class PinCodeController {
+  Logger logger = LoggerFactory.getLogger(PinCodeController.class);
 
-    @Autowired
-    private PinCodeService pinCodeService;
+  @Autowired private PinCodeService pinCodeService;
 
-    @GetMapping("/{pinCode}")
-    public String readPinCodeData(@PathVariable Integer pinCode) {
+  @GetMapping("/{zipcode}")
+  public ResponseBody readPinCodeData(@PathVariable("zipcode") Integer zipCode)
+      throws PinCodeServiceException {
+    logger.info("readPinCodeData in PinCodeController");
 
-       String output =  (String) pinCodeService.getPinCodeDetails(pinCode);
-        System.out.println("pinCode :"+pinCode);
-
-        return output;
+    if (null == zipCode || 0 == zipCode) {
+      throw new PinCodeServiceException(
+          new ErrorResponse("Bad Data", HttpStatus.BAD_REQUEST.toString()));
     }
 
+    Object output = pinCodeService.getPinCodeDetails(zipCode);
+    logger.info("output: {}", output);
+
+    return (ResponseBody) output;
+  }
 }

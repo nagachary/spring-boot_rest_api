@@ -1,6 +1,8 @@
 package com.spring.rest.service;
 
-public sealed interface PinCodeService permits PinCodeServiceImpl {
+import com.spring.rest.exception.PinCodeServiceException;
 
-    Object getPinCodeDetails(Integer pinCode);
+public interface PinCodeService {
+
+  Object getPinCodeDetails(Integer pinCode) throws PinCodeServiceException;
 }
