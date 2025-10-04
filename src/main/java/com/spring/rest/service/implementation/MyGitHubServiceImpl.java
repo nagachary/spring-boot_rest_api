@@ -42,7 +42,7 @@ public class MyGitHubServiceImpl implements MyGitHubService {
     map.put("Accept", "application/vnd.github+json");
 
     String url =
-        "https://api.github.com/repos/" + request.owner() + "/" + request.repo() + "/commits";
+        "http://api.github.com/repos/" + request.owner() + "/" + request.repo() + "/commits";
     return restTemplate.exchange(new URI(url), HttpMethod.GET, new HttpEntity<>(map), List.class);
   }
 }
