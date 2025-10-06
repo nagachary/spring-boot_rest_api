@@ -23,11 +23,10 @@ import org.springframework.web.client.RestTemplate;
 public class MyGitHubServiceImpl implements MyGitHubService {
   Logger logger = LoggerFactory.getLogger(MyGitHubServiceImpl.class);
 
-  @Qualifier("REST_TEMPLATE")
   private final RestTemplate restTemplate;
 
   @Autowired
-  public MyGitHubServiceImpl(RestTemplate restTemplate) {
+  public MyGitHubServiceImpl(@Qualifier("REST_TEMPLATE") RestTemplate restTemplate) {
     this.restTemplate = restTemplate;
   }
 

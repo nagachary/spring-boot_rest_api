@@ -5,6 +5,7 @@ import com.spring.rest.exception.PinCodeServiceException;
 import com.spring.rest.service.PinCodeService;
 import java.net.URI;
 import java.util.HashMap;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,27 +18,28 @@ import org.springframework.web.client.RestTemplate;
 public final class PinCodeServiceImpl implements PinCodeService {
   Logger logger = LoggerFactory.getLogger(PinCodeServiceImpl.class);
 
-  @Qualifier("REST_TEMPLATE")
   private final RestTemplate restTemplate;
 
   @Autowired
-  public PinCodeServiceImpl(RestTemplate restTemplate) {
+  public PinCodeServiceImpl(@Qualifier("REST_TEMPLATE") RestTemplate restTemplate) {
     this.restTemplate = restTemplate;
   }
 
   @Override
-  public ResponseEntity<Object> getPinCodeDetails(Integer zipcode) throws PinCodeServiceException {
+  public List getPinCodeDetails(Integer zipcode) throws PinCodeServiceException {
     logger.info("getPinCodeDetails in PinCodeServiceImpl");
 
     HashMap<Object, Object> map = new HashMap<>();
     map.put("Accept", MediaType.APPLICATION_JSON_VALUE);
 
     String url = "http://api.postalpincode.in/pincode/" + zipcode;
-    ResponseEntity<Object> response = null;
+    List response = null;
     try {
 
       response =
-          restTemplate.exchange(new URI(url), HttpMethod.GET, new HttpEntity<>(map), Object.class);
+          restTemplate
+              .exchange(new URI(url), HttpMethod.GET, new HttpEntity<>(map), List.class)
+              .getBody();
 
     } catch (Exception exp) {
       throw new PinCodeServiceException(

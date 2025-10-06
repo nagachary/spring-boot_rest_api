@@ -3,11 +3,11 @@ package com.spring.rest.controller;
 import com.spring.rest.exception.ErrorResponse;
 import com.spring.rest.exception.PinCodeServiceException;
 import com.spring.rest.service.PinCodeService;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,7 +18,7 @@ public class PinCodeController {
   @Autowired private PinCodeService pinCodeService;
 
   @GetMapping("/{zipcode}")
-  public ResponseEntity<Object> readPinCodeData(@PathVariable("zipcode") Integer zipCode)
+  public List readPinCodeData(@PathVariable("zipcode") Integer zipCode)
       throws PinCodeServiceException {
     logger.info("readPinCodeData in PinCodeController");
 
@@ -27,7 +27,7 @@ public class PinCodeController {
           new ErrorResponse("Bad Data", HttpStatus.BAD_REQUEST.toString()));
     }
 
-    ResponseEntity<Object> output = pinCodeService.getPinCodeDetails(zipCode);
+    List output = pinCodeService.getPinCodeDetails(zipCode);
     logger.info("output: {}", output);
 
     return output;

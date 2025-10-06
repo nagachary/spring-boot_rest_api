@@ -27,7 +27,7 @@ public class MyGitHubController {
   }
 
   @GetMapping("/{owner}/{repoName}/commits")
-  public ResponseEntity<List> readGitHubDetails(
+  public List readGitHubDetails(
       @PathVariable("owner") String owner,
       @PathVariable("repoName") String repoName,
       @RequestHeader("Authorization") String authKey,
@@ -43,20 +43,27 @@ public class MyGitHubController {
     }
 
     ResponseEntity<List> responseEntity = null;
+    List response = null;
     try {
       responseEntity =
-          gitHubService.<ResponseEntity<List>>getRepoCommitDetails(
+          gitHubService.getRepoCommitDetails(
               new MyGitHubRequest(owner, repoName, authKey, gitHubApiVersion));
+
     } catch (URISyntaxException e) {
       throw new GitHubServiceException(
           new ErrorResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.toString()));
     }
 
-    if (null != responseEntity && responseEntity.getStatusCode().is2xxSuccessful()) {
+    if (null != responseEntity
+        && null != responseEntity.getStatusCode()
+        && responseEntity.getStatusCode().is2xxSuccessful()) {
       logger.info("response :{}", responseEntity.getBody());
+      response = responseEntity.getBody();
     } else {
       logger.info("API call failed");
+      throw new GitHubServiceException(
+          new ErrorResponse("Error Occurred :", HttpStatus.INTERNAL_SERVER_ERROR.toString()));
     }
-    return responseEntity;
+    return response;
   }
 }
