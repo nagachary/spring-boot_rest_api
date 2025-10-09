@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.*;
 public class MyGitHubController {
   Logger logger = LoggerFactory.getLogger(MyGitHubController.class);
 
-  @Autowired private final MyGitHubService gitHubService;
+  private final MyGitHubService gitHubService;
 
-  public MyGitHubController(MyGitHubService gitHubService) {
+  public MyGitHubController(@Autowired MyGitHubService gitHubService) {
     this.gitHubService = gitHubService;
   }
 

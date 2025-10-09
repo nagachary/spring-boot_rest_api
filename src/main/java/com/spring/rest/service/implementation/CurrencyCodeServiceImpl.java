@@ -12,9 +12,10 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
-@Component
+@Service
 @Import(BeansConfiguration.class)
 public class CurrencyCodeServiceImpl implements CurrencyCodeService {
   Logger logger = LoggerFactory.getLogger(CurrencyCodeServiceImpl.class);

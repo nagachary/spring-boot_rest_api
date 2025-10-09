@@ -32,7 +32,8 @@ public final class PinCodeServiceImpl implements PinCodeService {
     HashMap<Object, Object> map = new HashMap<>();
     map.put("Accept", MediaType.APPLICATION_JSON_VALUE);
 
-    String url = "http://api.postalpincode.in/pincode/" + zipcode;
+   // String url = "http://api.postalpincode.in/pincode/" + zipcode;
+    String url = "https://api.restful-api.dev/objects?id=3&id=5&id=10";
     List response = null;
     try {
 
