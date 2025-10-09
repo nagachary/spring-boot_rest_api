@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.naga</groupId>
-    <artifactId>spring_rest</artifactId>
+    <artifactId>spring-boot_rest_api</artifactId>
     <version>1.0-SNAPSHOT</version>
     <parent>
         <groupId>org.springframework.boot</groupId>
