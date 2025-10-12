@@ -2,29 +2,34 @@ package com.spring.rest.controller;
 
 import com.spring.rest.exception.GitHubServiceException;
 import com.spring.rest.service.ListOfObjectsService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/objects")
 public class ListOfObjectsController {
-
+    Logger logger = LoggerFactory.getLogger(ListOfObjectsController.class);
+    @Autowired
     private ListOfObjectsService listOfObjectsService;
 
-    public ListOfObjectsController(@Autowired ListOfObjectsService listOfObjectsService) {
-        this.listOfObjectsService = listOfObjectsService;
-    }
 
     @GetMapping
-    public List readListOfObjects(@RequestParam List<Integer> id) throws Exception {
+    public  List<Map<String, Object>> readListOfObjects(@RequestParam List<Integer> ids) throws Exception {
+        logger.info("readListOfObjects :");
 
-        if(id.isEmpty()) {
+        if (ids.isEmpty()) {
             throw new Exception("Bad Data Exception :");
         }
 
-        return List.of();
+        List<Map<String, Object>> result = listOfObjectsService.getObjects(ids);
+        logger.info("result : " + result);
+
+        return result;
     }
 
 }
