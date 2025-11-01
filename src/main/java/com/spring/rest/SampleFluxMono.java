@@ -267,6 +267,4 @@ public class SampleFluxMono {
                 .map(t2 -> t2.getT1() + t2.getT2() )
                 .log();
     }
-
-
 }
