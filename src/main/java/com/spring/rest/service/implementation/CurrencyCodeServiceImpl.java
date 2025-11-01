@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
@@ -34,7 +33,8 @@ public class CurrencyCodeServiceImpl implements CurrencyCodeService {
         restClient
             .get()
             .uri(
-                urlBuilder -> URI.create(urlBuilder.path("/currency/" + currencyCode).toUriString()))
+                urlBuilder ->
+                    URI.create(urlBuilder.path("/currency/" + currencyCode).toUriString()))
             .accept(MediaType.APPLICATION_JSON)
             .retrieve()
             .toEntity(List.class);

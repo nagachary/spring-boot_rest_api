@@ -4,6 +4,5 @@ import java.util.List;
 
 public interface ListOfObjectsService {
 
-    <T> T getObjects(List<Integer> id);
-
+  <T> T getObjects(List<Integer> id);
 }

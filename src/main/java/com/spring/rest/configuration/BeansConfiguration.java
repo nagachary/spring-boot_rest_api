@@ -33,10 +33,17 @@ public class BeansConfiguration {
 
   @Bean("REST_CLIENT")
   public RestClient restClient() {
-    return RestClient.builder().baseUrl(currencyApiBasePath).defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).build();
+    return RestClient.builder()
+        .baseUrl(currencyApiBasePath)
+        .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+        .build();
   }
 
   @Bean("WEB_CLIENT")
-  public WebClient webClient() { return WebClient.builder().baseUrl(listOfObjectsApiBasePath).defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE).build(); }
-
+  public WebClient webClient() {
+    return WebClient.builder()
+        .baseUrl(listOfObjectsApiBasePath)
+        .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+        .build();
+  }
 }
