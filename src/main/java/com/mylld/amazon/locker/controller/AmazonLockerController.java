@@ -3,7 +3,6 @@ package com.mylld.amazon.locker.controller;
 import com.mylld.amazon.locker.response.DepositOutput;
 import com.mylld.amazon.locker.Locker;
 import com.mylld.amazon.locker.request.PackageDetails;
-import com.mylld.amazon.locker.Size;
 import com.mylld.amazon.locker.response.PickUpOutput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
