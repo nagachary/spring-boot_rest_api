@@ -14,7 +14,7 @@ import static java.lang.String.format;
 import static java.time.Instant.now;
 import static java.time.temporal.ChronoUnit.DAYS;
 
-/*Locker is the orchestration class where we handle the deposit and pick-up features of Amazon locker*/
+/* Locker is the orchestration class where we handle the deposit and pick-up features of Amazon locker */
 @Component
 public class Locker {
     private final Logger logger = LoggerFactory.getLogger(Locker.class);

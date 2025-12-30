@@ -1,6 +1,6 @@
 ## Amazon Locker
 
-### Class Design
+### [Class Design](./diagram/Amazon-locker-class_diagram.drawio.png)
 ```
         Class Locker:
         - compartments: Compartment[]
