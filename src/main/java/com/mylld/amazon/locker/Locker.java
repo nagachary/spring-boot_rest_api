@@ -1,6 +1,9 @@
 package com.mylld.amazon.locker;
 
+import com.mylld.amazon.locker.controller.AmazonLockerController;
 import com.mylld.amazon.locker.response.DepositOutput;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -14,7 +17,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
 /*Locker is the orchestration class where we handle the deposit and pick-up features of Amazon locker*/
 @Component
 public class Locker {
-
+    private final Logger logger = LoggerFactory.getLogger(Locker.class);
     private final List<Compartment> compartments;
     private final Map<String, AccessToken> accessTokenMapping;
     private final Set<Integer> occupiedCompartments;
@@ -29,6 +32,7 @@ public class Locker {
 
     /* Handles the package deposit of specific size */
     public DepositOutput depositPackage(Size packageSize) {
+        logger.info("depositPackage");
         Compartment availableComp = getAvailableCompartment(packageSize);
         if (null == availableComp) {
 
@@ -44,7 +48,7 @@ public class Locker {
 
     /* Handles the package pick-up using access code */
     public Integer pickUp(String accessCode) {
-
+        logger.info("pickUp");
         if (!StringUtils.hasText(accessCode)) {
             throw new RuntimeException("Invalid access token code");
         }
@@ -67,8 +71,7 @@ public class Locker {
     }
 
     private Compartment getAvailableCompartment(Size size) {
-        System.out.println(" getAvailableCompartment : ");
-
+        logger.info("getAvailableCompartment");
         if (compartments.isEmpty() && occupiedCompartments.isEmpty()) {
             Compartment compartment = new Compartment();
             compartment.setId(1);
@@ -85,6 +88,7 @@ public class Locker {
     }
 
     private AccessToken generateAccessToken(Compartment compartment) {
+        logger.info("generateAccessToken");
         String accessCode = format("%06d", random.nextInt(1_000_000));
         Instant expiration = now().plus(7, DAYS);
 
@@ -92,6 +96,7 @@ public class Locker {
     }
 
     private void clearLocker(AccessToken accessToken) {
+        logger.info("clearLocker");
         Compartment currentCompartment = accessToken.getCompartment();
         occupiedCompartments.remove(currentCompartment.getId());
         accessTokenMapping.remove(accessToken.getAccessCode());

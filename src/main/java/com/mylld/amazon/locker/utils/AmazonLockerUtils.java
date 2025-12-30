@@ -1,6 +1,7 @@
 package com.mylld.amazon.locker.utils;
 
 import com.mylld.amazon.locker.request.PackageDetails;
+
 import static com.mylld.amazon.locker.Size.of;
 
 public final class AmazonLockerUtils {
