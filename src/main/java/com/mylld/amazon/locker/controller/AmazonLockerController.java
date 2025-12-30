@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import static com.mylld.amazon.locker.Size.of;
 
 import static com.mylld.amazon.locker.utils.AmazonLockerUtils.validateDepositRequest;
 
@@ -24,7 +25,7 @@ public class AmazonLockerController {
     public @ResponseBody DepositOutput depositPackage(@RequestBody PackageDetails packageDetails) {
         logger.info("depositPackage");
         validateDepositRequest(packageDetails);
-        return locker.depositPackage(Size.of(packageDetails.getPackageSize().toUpperCase()));
+        return locker.depositPackage(of(packageDetails.getPackageSize().toUpperCase()));
     }
 
     @GetMapping("/pickup-package")
