@@ -1,9 +1,10 @@
 package com.mylld.amazon.locker.controller;
 
-import com.mylld.amazon.locker.DepositOutput;
+import com.mylld.amazon.locker.response.DepositOutput;
 import com.mylld.amazon.locker.Locker;
-import com.mylld.amazon.locker.PackageDetails;
+import com.mylld.amazon.locker.request.PackageDetails;
 import com.mylld.amazon.locker.Size;
+import com.mylld.amazon.locker.response.PickUpOutput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,8 +25,10 @@ public class AmazonLockerController {
     }
 
     @GetMapping("/pickup-package")
-    public @ResponseBody Integer pickUpPackage(@RequestBody String accessCode) {
+    public @ResponseBody PickUpOutput pickUpPackage(@RequestParam("accessCode") String accessCode) {
+        PickUpOutput pickUpOutput = new PickUpOutput();
+        pickUpOutput.setCompartmentId(locker.pickUp(accessCode));
 
-        return locker.pickUp(accessCode);
+        return pickUpOutput;
     }
 }

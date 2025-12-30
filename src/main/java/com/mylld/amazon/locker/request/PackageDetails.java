@@ -1,4 +1,4 @@
-package com.mylld.amazon.locker;
+package com.mylld.amazon.locker.request;
 
 public class PackageDetails {
 

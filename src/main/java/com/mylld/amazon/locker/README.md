@@ -40,4 +40,11 @@
 * **Size**: This is an Enum which gives the size specification of the compartment for package deposit.
 * **DepositOutput**: This is the class which is the output with access code and compartment details for the deposited package.
 
+Endpoints:
+```
+        http://localhost:8085/mysbapp/amazon-locker/deposit-package
+        http://localhost:8085/mysbapp/amazon-locker/pickup-package?accessCode=?
+```
+
+
 **Note:** Learning Reference: https://www.hellointerview.com/learn

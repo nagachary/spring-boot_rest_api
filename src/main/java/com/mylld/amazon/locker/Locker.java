@@ -1,5 +1,6 @@
 package com.mylld.amazon.locker;
 
+import com.mylld.amazon.locker.response.DepositOutput;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -30,6 +31,7 @@ public class Locker {
     public DepositOutput depositPackage(Size packageSize) {
         Compartment availableComp = getAvailableCompartment(packageSize);
         if (null == availableComp) {
+
             throw new RuntimeException("No available compartment of package size " + packageSize);
         }
 
@@ -42,18 +44,21 @@ public class Locker {
 
     /* Handles the package pick-up using access code */
     public Integer pickUp(String accessCode) {
+
         if (!StringUtils.hasText(accessCode)) {
             throw new RuntimeException("Invalid access token code");
         }
 
         AccessToken userAccessToken = accessTokenMapping.get(accessCode);
         if (null == userAccessToken) {
+
             throw new RuntimeException("Invalid access token code");
         }
 
         Compartment compartment = userAccessToken.getCompartmentIfValid();
         if (null == compartment) {
             clearLocker(userAccessToken);
+
             throw new RuntimeException("Access token has expired");
         }
 
@@ -62,8 +67,17 @@ public class Locker {
     }
 
     private Compartment getAvailableCompartment(Size size) {
+        System.out.println(" getAvailableCompartment : ");
+
+        if (compartments.isEmpty() && occupiedCompartments.isEmpty()) {
+            Compartment compartment = new Compartment();
+            compartment.setId(1);
+            compartment.setSize(size);
+            return compartment;
+        }
+
         Optional<Compartment> availableCompartment = compartments.stream()
-                .filter(comp -> !compartments.isEmpty())
+                //.filter(comp -> !compartments.isEmpty())
                 .filter(comp -> comp.getSize() == size)
                 .filter(comp -> !occupiedCompartments.contains(comp.getId())).findFirst();
 
