@@ -45,6 +45,3 @@ Endpoints:
         http://localhost:8085/mysbapp/amazon-locker/deposit-package (POST)
         http://localhost:8085/mysbapp/amazon-locker/pickup-package?accessCode=<?> (GET)
 ```
-
-
-**Note:** Learning Reference: https://www.hellointerview.com/learn
